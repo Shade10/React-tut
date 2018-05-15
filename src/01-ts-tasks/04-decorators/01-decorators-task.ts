@@ -1,4 +1,3 @@
-
 class Person {
   // @myObservable()
   firstName: string;
@@ -19,6 +18,9 @@ function testComputed() {
   console.log('testObservable 1st:', bob.fullName);
   bob.lastName = 'BOB!';
   console.log('testObservable 2nd:', bob.fullName);
+
+  const ed = new Person();
+  console.log('should be undefined:', ed.fullName);
 }
 
 export function decoratorsTaskApp() {
