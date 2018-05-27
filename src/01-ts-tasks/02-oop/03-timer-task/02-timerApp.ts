@@ -1,5 +1,14 @@
 // import { Timer, TimerParams } from "./src/Timer";
 
+
+// TODO timer functions:
+// const intervalId = setInterval(function () {
+//   // this === undefined
+// }, 3000);
+//
+// clearInterval(intervalId);
+
+
 export function timerApp() {
   // const params: TimerParams = {
   //   duration: 20, // in sec, default: Infinity
