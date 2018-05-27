@@ -1,11 +1,13 @@
+// @MyComputed({
+//   fullName: ['firstName', 'lastName']
+// })
 class Person {
-  // @myObservable()
+  // @MyObservable()
   firstName: string;
 
-  // @myObservable()
+  // @MyObservable()
   lastName: string;
 
-  // @myComputed(['firstName', 'lastName'])
   fullName() {
     return [this.firstName, this.lastName].join(' ');
   }
@@ -13,14 +15,13 @@ class Person {
 
 function testComputed() {
   const bob = new Person();
+  const ed = new Person();
   console.log('testObservable none:', bob.fullName);
   bob.firstName = 'Uncle';
   console.log('testObservable 1st:', bob.fullName);
   bob.lastName = 'BOB!';
   console.log('testObservable 2nd:', bob.fullName);
-
-  const ed = new Person();
-  console.log('should be undefined:', ed.fullName);
+  console.log('ED:', ed.fullName);
 }
 
 export function decoratorsTaskApp() {

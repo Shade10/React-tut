@@ -1,3 +1,3 @@
-// TODO: @myObservable()
+// TODO: @MyObservable()
 
-// TODO: @myComputed()
+// TODO: @MyComputed()
