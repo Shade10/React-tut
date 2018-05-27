@@ -24,5 +24,6 @@ export function eventedExampleUsageApp() {
   //
   // // trigger event
   // bob.trigger(eventName, 1, "qq"); // nothing logged
+  // bob.trigger("some other event"); // nothing logged
   // console.log("eventedExampleUsage() END");
 }
