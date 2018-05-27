@@ -1,3 +1,9 @@
+// const array = [12, 23, 34, 45];
+// for (let i = 0; i < array.length; i++) {
+//   let arrayElement = array[i];
+// }
+
+
 // TODO: map
 function map(list, mappingFn) {
   return [];
@@ -24,6 +30,9 @@ function testFilter() {
   };
   let namesStartingWithB: string[] = filter(names, startingWithB);
   console.log("filter:", namesStartingWithB);
+
+  const evens = filter([11, 12, 13, 14, 15], (n) => n % 2 === 0);
+  console.log("filter evens:", evens);
 }
 
 // TODO: reduce
@@ -35,19 +44,29 @@ function testReduce() {
   let sumFn: Function = function (memo: any, item: any, index: number, list: any[]): any {
     return memo + item;
   };
-  // should return => 14
+  // should return => 10
   console.log("reduce 1:", reduce([2, 5, 7], sumFn, -4));
 
   let mergeFn = function (memo: any, item: any, index: number, list: any[]): any {
     return merge(memo, item);
   };
   // should return => {name: "bob", age: 12, sex: "M"}
-  console.log("reduce 2:", reduce([{name: "bob"}, {age: 12}, {sex: "M"}], mergeFn, {}));
+  const results = reduce(
+    [{name: "bob"}, {age: 12}, {sex: "M"}],
+    mergeFn,
+    {}
+  );
+  console.log("reduce 2:", results);
 }
+
+
+// const obj = {name: 'bob'};
+// for (let propertyName in obj) {
+//   let value = obj[propertyName];
+// }
 
 // TODO: merge
 function merge(destination, source) {
-  return {};
 }
 
 function testMerge() {
@@ -93,7 +112,7 @@ function testPluck() {
 }
 
 // TODO: groupBy
-function groupBy(list, iterator) {
+function groupBy(list, groupingFn) {
   return {};
 }
 

@@ -1,10 +1,4 @@
-// ======
-// function interface
-
 // todo FetchDataCallback
-interface FetchDataCallback {
-  (data: any, error?: Error): void;
-}
 
 interface User {
   login: string;
