@@ -1,8 +1,4 @@
-import { Subject } from "rxjs/Subject";
-import { Observable } from "rxjs/Observable";
-import { interval } from "rxjs/internal/observable/interval";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { ReplaySubject } from "rxjs/ReplaySubject";
+import { Subject, Observable, interval, BehaviorSubject, ReplaySubject } from "rxjs";
 import { ajax } from "rxjs/ajax";
 
 import { fullObserver } from "./utils";
@@ -20,21 +16,21 @@ function subjectIsBothStreamAndObserver() {
 
 // stores latest emitted value
 function getLatestValueSubject() {
-  const mySubject = new BehaviorSubject({data: 'some initial value'});
+  const mySubject = new BehaviorSubject({ data: 'some initial value' });
   // 1st subscriber
   mySubject.subscribe(fullObserver('1st Behavior Observer'));
 
-  mySubject.next({data: '1st emited data'});   // emit value
+  mySubject.next({ data: '1st emited data' });   // emit value
 
   setTimeout(function () {
     // 2nd subscriber
     mySubject.subscribe(fullObserver('2nd Behavior Observer'));
   }, 1200);
 
-  mySubject.next({data: '2nd emitted data'});   // emit value
+  mySubject.next({ data: '2nd emitted data' });   // emit value
 
   setTimeout(function () {
-    mySubject.next({data: '3rd emitted data'});   // emit value
+    mySubject.next({ data: '3rd emitted data' });   // emit value
   }, 2400);
 }
 

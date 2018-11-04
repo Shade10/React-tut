@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 function fakeResults(query) {
@@ -32,7 +31,7 @@ export class RegistrationService {
 
   validate(value: any): Observable<Object> {
     console.log(`REQ validate()`, value);
-    return of({value, isValid: true}).pipe(
+    return of({ value, isValid: true }).pipe(
       delay(delayInMs),
     );
   }

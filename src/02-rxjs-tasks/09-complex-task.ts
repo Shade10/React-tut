@@ -1,6 +1,4 @@
-import { throwError } from "rxjs/internal/observable/throwError";
-import { interval } from "rxjs/observable/interval";
-import { of } from "rxjs/observable/of";
+import { throwError, interval, of } from "rxjs";
 import { catchError, delay, map, retry, take, tap, mergeMap, mergeAll } from "rxjs/operators";
 
 import { fullObserver } from "./utils";

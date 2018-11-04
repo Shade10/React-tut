@@ -16,7 +16,7 @@ controlParams[0].toUpperCase();
 controlParams[1].toFixed();
 
 // tuples c.d. - elements outside known indices
-controlParams[99] = 1.099; // union type: string | number
+// controlParams[99] = 1.099; // union type: string | number
 
 // ======
 // enum

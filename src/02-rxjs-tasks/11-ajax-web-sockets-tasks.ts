@@ -1,7 +1,7 @@
-import { webSocket } from "rxjs/webSocket";
-import { WebSocketSubject } from "rxjs/observable/dom/WebSocketSubject";
-import { fullObserver } from "./utils";
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { ajax } from "rxjs/ajax";
+
+import { fullObserver } from "./utils";
 
 function webSocketTest() {
   const wsUri = "wss://echo.websocket.org/";

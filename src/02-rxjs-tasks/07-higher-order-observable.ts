@@ -1,15 +1,11 @@
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { interval } from 'rxjs/observable/interval';
-import { of } from 'rxjs/observable/of';
-import { from } from 'rxjs/observable/from';
-import { timer } from 'rxjs/observable/timer';
+import { forkJoin, interval, of, from, timer } from 'rxjs';
 import { concatMap, delay, exhaustMap, map, mergeAll, mergeMap, switchMap, take, tap, zip } from 'rxjs/operators';
 
 import { fullObserver, items$, randomBetween } from './utils';
 
 function example1() {
   const btnClick$ = interval(600); // fake 'Download' btn clicks
-  const fetchData$ = of({id: 1, title: 'War & Peace'}).pipe( // fake data downloaded asynchronously
+  const fetchData$ = of({ id: 1, title: 'War & Peace' }).pipe( // fake data downloaded asynchronously
     delay(1500)
   );
   const downloadOnBtnClickHOO$ = btnClick$.pipe(
@@ -23,7 +19,7 @@ function example1() {
 }
 
 function fetchUser$(id: number) {
-  return of({id, name: `user ${id}`}).pipe(
+  return of({ id, name: `user ${id}` }).pipe(
     delay(1200)
   );
 }

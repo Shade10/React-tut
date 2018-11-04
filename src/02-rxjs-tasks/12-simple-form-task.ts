@@ -1,7 +1,4 @@
-import { Observable } from "rxjs/Observable";
-import { merge } from 'rxjs/observable/merge';
-import { fromEvent } from "rxjs/observable/fromEvent";
-import { combineLatest } from 'rxjs/observable/combineLatest';
+import { Observable, merge, fromEvent, combineLatest } from "rxjs";
 import {
   concatMap,
   debounceTime, distinctUntilChanged, exhaustMap, map,

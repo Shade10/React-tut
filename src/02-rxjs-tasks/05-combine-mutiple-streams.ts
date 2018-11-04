@@ -1,9 +1,5 @@
-import { interval } from 'rxjs/observable/interval';
+import { interval, of, race, concat, merge } from 'rxjs';
 import { map, take, delay } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { race } from 'rxjs/observable/race';
-import { concat } from 'rxjs/observable/concat';
-import { merge } from 'rxjs/observable/merge';
 
 import { fullObserver } from './utils';
 

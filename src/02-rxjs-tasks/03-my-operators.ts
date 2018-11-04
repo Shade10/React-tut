@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { myFromArray$, myInterval$ } from './01-my-observables';
 import { fullObserver } from './utils';

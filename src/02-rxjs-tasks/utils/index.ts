@@ -1,7 +1,4 @@
-import { Observer } from 'rxjs/Observer';
-import { Observable } from 'rxjs/Observable';
-import { timer } from 'rxjs/observable/timer';
-import { interval } from 'rxjs/observable/interval';
+import { Observer, Observable, timer, interval } from 'rxjs';
 import { map, scan, take, tap } from 'rxjs/operators';
 
 export function items$(items: any[], delayInMs: number): Observable<any> {

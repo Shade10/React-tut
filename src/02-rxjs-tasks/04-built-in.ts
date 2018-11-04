@@ -1,7 +1,5 @@
 // Observable creators
-import { interval } from 'rxjs/observable/interval';
-import { from } from 'rxjs/observable/from';
-import { range } from 'rxjs/observable/range';
+import { interval, from, range } from 'rxjs';
 
 // operators
 import {

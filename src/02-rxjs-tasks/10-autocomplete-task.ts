@@ -1,7 +1,5 @@
-import { fromEvent } from "rxjs/observable/fromEvent";
+import { fromEvent, Observable, of } from "rxjs";
 import { debounceTime, delay, distinctUntilChanged, map, switchMap } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
 
 import { fullObserver } from "./utils";
 

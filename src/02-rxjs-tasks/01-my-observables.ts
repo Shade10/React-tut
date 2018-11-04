@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 export function myCustomStream$(name: string): Observable<string> {
   return new Observable((observer) => {

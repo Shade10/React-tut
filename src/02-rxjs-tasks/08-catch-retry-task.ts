@@ -1,18 +1,13 @@
-import { of } from "rxjs/observable/of";
-import { concat } from "rxjs/observable/concat";
-import { range } from "rxjs/observable/range";
-import { throwError } from "rxjs/internal/observable/throwError";
+import { of, concat, range, throwError, timer, interval } from "rxjs";
 import { catchError, delay, finalize, map, retry, take, tap } from "rxjs/operators";
-import { timer } from "rxjs/observable/timer";
-import { interval } from "rxjs/observable/interval";
 
 import { fullObserver } from "./utils";
 
 function throwExample() {
   concat(
-    of({data: 'some data'}),
+    of({ data: 'some data' }),
     throwError(new Error('OH NOOOO!!')),
-    of({data: 'other data'}),
+    of({ data: 'other data' }),
   ).pipe(
     tap((v) => console.log('my throw LOG', v))
   ).subscribe(fullObserver('throwExample'));
