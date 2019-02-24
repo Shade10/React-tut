@@ -1,7 +1,33 @@
 import { forkJoin, interval, of, from, timer } from 'rxjs';
-import { concatMap, delay, exhaustMap, map, mergeAll, mergeMap, switchMap, take, tap, zip } from 'rxjs/operators';
+import {
+  concatMap,
+  delay,
+  exhaustMap,
+  map,
+  mergeAll,
+  mergeMap,
+  switchMap,
+  switchMapTo,
+  take,
+  tap,
+  zip
+} from 'rxjs/operators';
 
 import { fullObserver, items$, randomBetween } from './utils';
+
+
+function btnClick$(delay, count) {
+  // TODO
+}
+
+function fetchData$(url, respnseTime) {
+  // TODO
+}
+
+export function hooExamples() {
+  // TODO
+}
+
 
 function example1() {
   const btnClick$ = interval(600); // fake 'Download' btn clicks
