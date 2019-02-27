@@ -50,4 +50,4 @@ Thumbs.db
 
 # other
 /docs/todo.txt
-/server/snapshots
+/server/snapshots/*.json
