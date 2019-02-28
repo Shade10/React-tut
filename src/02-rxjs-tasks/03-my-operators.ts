@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-import { myFromArray$, myInterval$ } from './01-my-observables';
+import { myFromArray$, myInterval$, myRange$ } from './01-my-observables';
 import { fullObserver } from './utils';
 
 function myTake$(source$: Observable<any>, count: number) {
@@ -29,7 +29,7 @@ function taskSkip() {
 }
 
 // TODO task: myMap$
-function myMap$(source$: Observable<any>, projection: Function): Observable<any> {
+function myMap$(source$: Observable<any>, mappingFn: Function): Observable<any> {
   return null;
 }
 
@@ -44,7 +44,7 @@ function taskMap() {
 }
 
 // TODO task: myFilter$
-function myFilter$(source$: Observable<any>, projection: Function): Observable<any> {
+function myFilter$(source$: Observable<any>, filteringFn: Function): Observable<any> {
   return null;
 }
 
@@ -85,33 +85,33 @@ function taskFirst() {
 }
 
 // TODO task: myReduce$
-function myReduce$(source$: Observable<any>, predicate: Function, startValue: any): Observable<any> {
+function myReduce$(source$: Observable<any>, accumulatorFn: Function, startValue: any): Observable<any> {
   return null;
 }
 
 function taskReduce() {
-  const interval$ = myFromArray$([3, 4, 10]);
-  const evens$ = myReduce$(
-    interval$,
-    (accumulator, item) => accumulator * item,
+  const numbers$ = myFromArray$([3, 4, 10]);
+  const mltpResult$ = myReduce$(
+    numbers$,
+    (memo, item) => memo * item,
     -5
   );
-  evens$.subscribe(fullObserver('taskReduce'));
+  mltpResult$.subscribe(fullObserver('taskReduce'));
 }
 
 // TODO myBufferCount$
-function myBufferCount$(source$, count) {
+function myBufferCount$(source$, bufferSize) {
   return null;
 }
 
 function taskBufferCount() {
-  const interval$ = myInterval$(100);
-  myBufferCount$(interval$, 25)
+  const values$ = myRange$(0, 67);
+  myBufferCount$(values$, 25)
     .subscribe(fullObserver('taskBufferCount'));
 }
 
 export function myOperatorsApp() {
-  // taskTake();
+  taskTake();
   // taskSkip();
   // taskMap();
   // taskFilter();
