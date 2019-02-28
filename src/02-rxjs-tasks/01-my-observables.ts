@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 export function myCustomStream$(name: string): Observable<string> {
   return new Observable((observer) => {
@@ -10,11 +10,11 @@ export function myCustomStream$(name: string): Observable<string> {
 }
 
 function example1() {
-  const timeout$ = myCustomStream$('bob'); // nothing happens
-  // timeout$.subscribe((value: string) => console.log('[NEXT] timeout', value));
+  const custom$ = myCustomStream$('bob'); // nothing happens
+  // custom$.subscribe((value: string) => console.log('[NEXT] timeout', value));
   // TODO 1b: next(), error(), complete()
   // TODO 2: each subscribe call generating fn
-  // timeout$.subscribe(fullObserver('example1'));
+  // custom$.subscribe(fullObserver('example1'));
 }
 
 
@@ -97,6 +97,7 @@ function throwTask() {
 
 export function myObservablesApp() {
   // example1();
+  // timeoutTask();
   // intervalTask();
   // fromArrayTask();
   // fromArrayWithDelayTask();
