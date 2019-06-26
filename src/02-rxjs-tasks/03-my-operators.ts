@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { myFromArray$, myInterval$, myRange$ } from './01-my-observables';
 import { fullObserver } from './utils';
 
-function myTake$(source$: Observable<any>, count: number) {
+export function myTake$(source$: Observable<any>, count: number) {
   return new Observable((observer) => {
     // TODO 1: impl
 

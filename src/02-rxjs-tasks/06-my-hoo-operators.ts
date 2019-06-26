@@ -11,7 +11,7 @@ function letterStream$(letter: string, { delayInMs, count }) {
 }
 
 // TODO: myMergeAll$
-function myMergeAll$(sourceHoo$: Observable<Observable<any>>) {
+export function myMergeAll$(sourceHoo$: Observable<Observable<any>>) {
   return new Observable(function (obs) {
     const coSubscriptions: Subscription[] = [];
     let completedCount = 0;

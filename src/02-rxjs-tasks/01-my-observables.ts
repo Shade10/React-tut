@@ -1,6 +1,6 @@
 import { Observable, Observer } from 'rxjs';
 
-export function myCustomStream$(name: string): Observable<string> {
+export function myCustom$(name: string): Observable<string> {
   return new Observable((observer) => {
     console.log('generating Observable');
     // next
@@ -10,7 +10,7 @@ export function myCustomStream$(name: string): Observable<string> {
 }
 
 function example1() {
-  const custom$ = myCustomStream$('bob'); // nothing happens
+  const custom$ = myCustom$('bob'); // nothing happens
   // custom$.subscribe((value: string) => console.log('[NEXT] timeout', value));
   // TODO 1b: next(), error(), complete()
   // TODO 2: each subscribe call generating fn
