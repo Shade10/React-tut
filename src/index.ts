@@ -60,7 +60,8 @@ class Main {
     // myOperatorsApp();
     // builtInApp();
     // combineMultipleStreamsApp();
-    // myHooOperatorsApp();
+    myHooOperatorsApp();
+    //  myOperatorsApp();
     // higherOrderObservablesApp();
     // catchRetryTaskApp();
     // complexTaskApp();

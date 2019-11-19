@@ -18,9 +18,12 @@ import {
   bufferCount,
   first,
   skipWhile,
+  count,
+  timeInterval,
 } from 'rxjs/operators';
 
 import { fullObserver } from './utils';
+import { setTimeout, setInterval } from 'core-js';
 
 // TODO example 1:
 // wez tablice imion ->
@@ -47,6 +50,12 @@ function example1() {
 function example3() {
   const names = ['bob', 'ed', 'kate', 'ADMIN', 'boby'];
   // TODO
+  from(names).pipe(
+    
+    takeWhile((name) => name === 'ADMIN'),
+    map((name) => `Hello ${name}`),
+    delay(1200)
+  ).subscribe(fullObserver('example1'));
 }
 
 
@@ -58,6 +67,13 @@ function example3() {
 // przemapuj na kwadraty tych liczb ->
 // wyniki zaloguj na konsoli
 function task1() {
+  range(5, 21).pipe(
+    filter(num => num % 2 == 1),
+    skip(3),
+    take(4),
+    map(value => value ** 2)
+
+  ).subscribe(fullObserver('task1'));
 }
 
 // TODO task 2:
@@ -69,6 +85,13 @@ function task1() {
 // wez tylko ostatni obliczony wynik ->
 // ostatni iloczyn zaloguj na konsoli
 function task2() {
+  interval(800).pipe(
+    skip(1),
+    take(10),
+    scan((result, value) => result * value),
+    tap(v => console.log('side eff', v)),
+    takeLast(1)
+  ).subscribe(fullObserver('side effect'))
 }
 
 // TODO task 3:
@@ -77,6 +100,12 @@ function task2() {
 // oblicz sume wszystkich liczb ->
 // wynik zaloguj na konsoli
 function task3() {
+  interval(100).pipe(
+    filter(i => i %2 ==0 && i !== 0),
+    filter( num => num < 20),
+    scan((result, value) => result + value),
+  ).subscribe(fullObserver("tasks3"))
+  
 }
 
 // TODO task 4:
@@ -106,7 +135,7 @@ export function builtInApp() {
   // example3();
   // task1();
   // task2();
-  // task3();
+   task3();
   // task4();
   // task5();
 }

@@ -68,9 +68,51 @@ function exampleMyConcatAll() {
     .subscribe(fullObserver('exampleMyConcatAll'));
 }
 
+//switchall a-0 a-1 a-2 b-0 c-0 c-1 complete
+//exhaustall a-0 ...a-4 c-0 c-1 complete
+ 
+
 // TODO: mySwitchAll$
-function mySwitchAll$($sourceHoo: Observable<Observable<any>>) {
-  return new Observable(function () {
+function mySwitchAll$(sourceHoo$: Observable<Observable<any>>) {
+  return new Observable(function (obs) {
+    let innerSub = null;
+    let isInnerHaooRunning = true;
+    let isHaooRunning = false;
+
+    const mainSub = sourceHoo$.subscribe({
+      next(inners$) {
+        if (innerSub) {
+          innerSub.unsubscribe();
+        }
+        innerSub = inners$.subscribe({
+          next(value){
+            obs.next(value);
+          },
+          error(error){
+            obs.error(error);
+          },
+          complete(){
+            isInnerHaooRunning = false;
+            if (isInnerHaooRunning) {
+              obs.complete();
+              isHaooRunning = true
+            }
+          }
+        })
+      },
+      error(erro){
+        obs.error(erro);
+      },
+      complete(){
+        console.log(isHaooRunning);
+        if (isHaooRunning) {
+          obs.complete();
+        }
+      }
+    });
+    return function () {
+      mainSub.unsubscribe();
+    };
   });
 }
 
@@ -113,6 +155,6 @@ function exampleMyExhaustAll() {
 export function myHooOperatorsApp() {
   // exampleMyMergeAll();
   // exampleMyConcatAll();
-  // exampleMySwitchAll();
+   exampleMySwitchAll();
   // exampleMyExhaustAll();
 }

@@ -1,4 +1,4 @@
-import { interval, of, race, concat, merge } from 'rxjs';
+import { interval, of, race, concat, merge, Observable } from 'rxjs';
 import { map, take, delay } from 'rxjs/operators';
 
 import { fullObserver } from './utils';
@@ -6,7 +6,7 @@ import { fullObserver } from './utils';
 function myStream$(tag, delayInMs, value = null) {
   return interval(delayInMs).pipe(
     take(5),
-    map((i) => value === null ? `${tag} ${i}` : value)
+    map((i) => value === null ? `${tag} ${i}`+ console.log('to : i: ', i, 'value: ', value) : value + ' ' + + console.log('?:  i: ', i, 'value: ', value))
   );
 }
 
@@ -33,7 +33,7 @@ function concatExample() {
 
 function raceExample() {
   const quick$ = myStream$('quick', 400);
-  const medium$ = myStream$('medium', 1000);
+  const medium$ = myStream$('medium', 1200);
   const slow$ = myStream$('slow', 2200);
 
   race(quick$, medium$, slow$).subscribe(fullObserver('race'));
@@ -60,7 +60,11 @@ function task1() {
 // co delayInMs milisekund ->
 // emituj i-ty element tablicy transactions
 function userTransactions$(transactions: any[], delayInMs: number) {
-  return null;
+  return new Observable(obs =>{
+    transactions.forEach(element => {
+      obs.next(element);
+    });
+  })
 }
 
 function testUserTransactions() {
@@ -82,10 +86,10 @@ function task2() {
 }
 
 export function combineMultipleStreamsApp() {
-  // mergeExample();
+  //  mergeExample();
   // concatExample();
   // raceExample();
   // testUserTransactions();
-  // task1();
+  task1();
   // task2();
 }

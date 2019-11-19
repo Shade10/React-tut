@@ -11,7 +11,7 @@ export function myCustom$(name: string): Observable<string> {
 
 function example1() {
   const custom$ = myCustom$('bob'); // nothing happens
-  // custom$.subscribe((value: string) => console.log('[NEXT] timeout', value));
+  custom$.subscribe((value: string) => console.log('[NEXT] timeout', value));
   // TODO 1b: next(), error(), complete()
   // TODO 2: each subscribe call generating fn
   // custom$.subscribe(fullObserver('example1'));
@@ -22,23 +22,79 @@ function example1() {
 
 
 // TODO myTimeout$()
-export function myTimeout$(delayInMs: number): Observable<string> {
-  return null; // TODO
+export function myTimeout$(delayInMs: number): Observable<number> {
+  // return null; // TODO
+  return new Observable(function(obs){
+    const timeoutID = setTimeout(() => {
+      obs.next(123);
+      obs.next(456);
+      obs.complete();
+    }, delayInMs);
+
+    return function onUnsubscirbe(){
+      clearTimeout(timeoutID)
+    }
+  });
+
+
 }
 
 function timeoutTask() {
   const timeout$ = myTimeout$(2000); // nothing happens
-  timeout$.subscribe(myFullObserver('timeoutTask'));
+  // timeout$.subscribe(myFullObserver('timeoutTask'));
+  timeout$.subscribe({
+    next(value){
+      console.log('[next] example',value);
+    },
+    complete(){
+      console.log('[complete] example');
+
+    },
+    error(err){
+      console.log('[error] example',err);
+    }
+  })
 }
 
 // TODO task: myFullObserver(tag)
 function myFullObserver(tag: string) {
-  return null;
+  return {
+    next(value){
+      console.log('[next] example',value);
+    },
+    complete(){
+      console.log('[complete] example');
+
+    },
+    error(err){
+      console.log('[error] example',err);
+    }
+  }
+}
+
+function myFullObserverTest(tag: any) {
+  tag.subscribe({
+    next(value){
+      console.log('[next] example',value);
+    },
+    complete(){
+      console.log('[complete] example');
+
+    },
+    error(err){
+      console.log('[error] example',err);
+    }
+  })
 }
 
 // TODO task: myFromArray$
 export function myFromArray$(items: any[]): Observable<any> {
-  return null; // TODO
+  return new Observable(function(obs){
+    items.forEach(element => {
+      obs.next(element);
+    });
+    obs.complete();
+  });
 }
 
 function fromArrayTask() {
@@ -49,7 +105,13 @@ function fromArrayTask() {
 
 // TODO task: myRange$
 export function myRange$(startValue: number, count: number): Observable<number> {
-  return null; // TODO
+  return new Observable(function(obs){
+    let counter = 1;
+    for (startValue; counter <= count; counter++) {
+      obs.next(startValue++);
+      
+    }
+  })
 }
 
 function rangeTask() {
@@ -59,16 +121,41 @@ function rangeTask() {
 
 // TODO task: myInterval$
 export function myInterval$(delayInMs: number): Observable<number> {
-  return null; // TODO
+  return new Observable(function(obse){
+    let i = 0;
+    setInterval(function(obs) {
+      obse.next(i);
+      i++;
+    }, delayInMs);
+
+  });
 }
 
 function intervalTask() {
   myInterval$(1000)
-    .subscribe(myFullObserver('intervalTask'));
+  .subscribe({
+    next(value){
+      console.log('[next] example', value);
+    },
+    complete(){
+      console.log('[complete] example');
+
+    },
+    error(err){
+      console.log('[error] example',err);
+    }
+  })
 }
 
 function myFromArrayWithDelay$(items: any[], delayInMs: number) {
-  return null;
+  return new Observable(obs => {
+    setTimeout(() => {
+      items.forEach(element => {
+        obs.next(element);
+      });
+      obs.complete();
+    }, delayInMs);
+  })
 }
 
 function fromArrayWithDelayTask() {
@@ -78,7 +165,9 @@ function fromArrayWithDelayTask() {
 }
 
 function myThrow$(error) {
-  return null;
+  return new Observable(obs => {
+    obs.next(error);
+  })
 }
 
 function throwTask() {
@@ -96,8 +185,8 @@ function throwTask() {
 // TODO task: myTimer$
 
 export function myObservablesApp() {
-  // example1();
-  // timeoutTask();
+  //example1();
+  //timeoutTask();
   // intervalTask();
   // fromArrayTask();
   // fromArrayWithDelayTask();

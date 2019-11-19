@@ -4,9 +4,29 @@ import { myFromArray$, myInterval$, myRange$ } from './01-my-observables';
 import { fullObserver } from './utils';
 
 export function myTake$(source$: Observable<any>, count: number) {
-  return new Observable((observer) => {
+  return new Observable((obs) => {
     // TODO 1: impl
-
+    let i = 0;
+    const sourceSub = source$.subscribe({
+      next(value){
+        if (i < count) {
+          obs.next(value);
+        }
+        i += 1;
+        if (i> count) {
+          obs.complete();
+        }
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe()
+    }
     // TODO 2: clear up
   });
 }
@@ -19,7 +39,26 @@ function taskTake() {
 
 // TODO task: mySkip$
 function mySkip$(source$: Observable<any>, count: number): Observable<any> {
-  return null;
+  return new Observable((obs) => {
+    let i = 0;
+    const sourceSub = source$.subscribe({
+      next(value){
+        i += 1;
+        if (i > count) {
+          obs.next(value);
+        }
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe()
+    }
+  });
 }
 
 function taskSkip() {
@@ -30,7 +69,24 @@ function taskSkip() {
 
 // TODO task: myMap$
 function myMap$(source$: Observable<any>, mappingFn: Function): Observable<any> {
-  return null;
+  return new Observable((obs) => {
+    const sourceSub = source$.subscribe({
+      next(value){
+        if (mappingFn(value)) {
+          obs.next(value)
+        }
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe()
+    }
+  });
 }
 
 function taskMap() {
@@ -45,7 +101,21 @@ function taskMap() {
 
 // TODO task: myFilter$
 function myFilter$(source$: Observable<any>, filteringFn: Function): Observable<any> {
-  return null;
+  return new Observable(obs => {
+    let sourceSub = source$.subscribe({
+      next(value){
+        if (filteringFn(value)) {
+          obs.next(value);
+        }
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.complete();
+      }
+    })
+  })
 }
 
 function taskFilter() {
@@ -60,7 +130,26 @@ function taskFilter() {
 
 // TODO task: myTakeWhile$
 function myTakeWhile$(source$: Observable<any>, predicate: Function): Observable<any> {
-  return null;
+  return new Observable((obs) => {
+    const sourceSub = source$.subscribe({
+      next(value){
+        if (predicate(value)) {
+          obs.next(value);
+        }else{
+          obs.complete();
+        }
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe()
+    }
+  });
 }
 
 function taskTakeWhile() {
@@ -75,7 +164,25 @@ function taskTakeWhile() {
 
 // TODO task: myFirst$
 function myFirst$(source$: Observable<any>, predicate: Function): Observable<any> {
-  return null;
+  return new Observable(obs =>{
+    const sourceSub = source$.subscribe({
+      next(value){
+        if (predicate(value)) {
+          obs.next(value);
+          obs.complete();
+        }
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe();
+    }
+  })
 }
 
 function taskFirst() {
@@ -86,7 +193,24 @@ function taskFirst() {
 
 // TODO task: myReduce$
 function myReduce$(source$: Observable<any>, accumulatorFn: Function, startValue: any): Observable<any> {
-  return null;
+  return new Observable((obs) => {
+    let memo = startValue;
+    const sourceSub = source$.subscribe({
+      next(value){
+        memo = accumulatorFn(memo,value);
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.next(memo);
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe()
+    }
+  });
 }
 
 function taskReduce() {
@@ -101,7 +225,28 @@ function taskReduce() {
 
 // TODO myBufferCount$
 function myBufferCount$(source$, bufferSize) {
-  return null;
+  return new Observable((obs) => {
+    let buffer = [];
+    const sourceSub = source$.subscribe({
+      next(value){
+        buffer.push(value);
+        if (buffer.length >= bufferSize) {
+          obs.next(buffer);
+          buffer = [];
+        };
+      },
+      error(error){
+        obs.error(error);
+      },
+      complete(){
+        obs.next(buffer);
+        obs.complete();
+      }
+    })
+    return function(){
+      sourceSub.unsubscribe()
+    }
+  });
 }
 
 function taskBufferCount() {
@@ -111,12 +256,12 @@ function taskBufferCount() {
 }
 
 export function myOperatorsApp() {
-  taskTake();
+  //taskTake();
   // taskSkip();
   // taskMap();
   // taskFilter();
   // taskTakeWhile();
   // taskFirst();
   // taskReduce();
-  // taskBufferCount();
+   taskBufferCount();
 }
